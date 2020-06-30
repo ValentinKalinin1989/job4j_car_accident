@@ -20,4 +20,8 @@ public class AccidentService {
     public List<Accident> findAll() {
         return accidentMen.findAll();
     }
+
+    public void save(Accident accident) {
+        accidentMen.save(accident);
+    }
 }

@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public class AccidentMen {
     private HashMap<Long, Accident> accidents;
+    private Long id;
 
     public AccidentMen() {
         this.accidents = new HashMap<>();
@@ -27,13 +28,34 @@ public class AccidentMen {
         accidents.put(9L, new Accident(9L, "Декард Шоу", "Сбил китайца", "Токио, проспект Ленина"));
         accidents.put(10L, new Accident(10L, "Билли Бутчер", "Сбил человека-невидимку", "Нью-Йорк, магазин видео-аудио техники, проспект Ленина"));
         accidents.put(11L, new Accident(11L, "Иван Иванович Иванов", "Превышение скорости на 20 км/час", "Москва, проспект Ленина"));
+        id = (long) accidents.size();
     }
 
     /**
      * get List of all accidents
+     *
      * @return List of accidents
      */
     public List<Accident> findAll() {
-        return  new ArrayList<>(accidents.values());
+        return new ArrayList<>(accidents.values());
+    }
+
+    /**
+     * save accident if it is new, or update accident if same id present in repository
+     *
+     * @param accident - object to save or update in repository
+     */
+    public void save(Accident accident) {
+        Long accidentId = accident.getId();
+        if (accidents == null) {
+            accidents = new HashMap<>();
+            id = 0L;
+        }
+        if (accidentId == null) {
+            id++;
+            accidentId = id;
+            accident.setId(accidentId);
+        }
+        accidents.put(accidentId, accident);
     }
 }
