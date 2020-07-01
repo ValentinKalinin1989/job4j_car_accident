@@ -7,6 +7,7 @@ public class Accident {
     private String name;
     private String text;
     private String address;
+    private AccidentType accidentType;
 
     public Long getId() {
         return id;
@@ -40,6 +41,14 @@ public class Accident {
         this.address = address;
     }
 
+    public AccidentType getAccidentType() {
+        return accidentType;
+    }
+
+    public void setAccidentType(AccidentType accidentType) {
+        this.accidentType = accidentType;
+    }
+
     public Accident() {
     }
 
@@ -55,6 +64,14 @@ public class Accident {
         this.name = name;
         this.text = text;
         this.address = address;
+    }
+
+    public Accident(Long id, String name, String text, String address, AccidentType accidentType) {
+        this.id = id;
+        this.name = name;
+        this.text = text;
+        this.address = address;
+        this.accidentType = accidentType;
     }
 
     @Override

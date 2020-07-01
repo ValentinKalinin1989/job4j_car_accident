@@ -23,6 +23,7 @@
         <tr>
             <th>Id</th>
             <th>ФИО нарушителя</th>
+            <th>Тип события</th>
             <th>Событие</th>
             <th>Место</th>
             <th></th>
@@ -34,6 +35,7 @@
                 <form action="<c:url value='./edit'/>" method="GET">
                     <td><input type="hidden" name="id" value="${accident.id}">${accident.id}</td>
                     <td><input type="hidden" name="name" value="${accident.name}">${accident.name}</td>
+                    <td><input type="hidden" name="accidentTypeId" value="${accident.accidentType.id}">${accident.accidentType.name}</td>
                     <td><input type="hidden" name="text" value="${accident.text}">${accident.text}</td>
                     <td><input type="hidden" name="address" value="${accident.address}">${accident.address}</td>
                     <td><input name="submit" type="submit" value="Редактировать" class="btn btn-dark"></td>

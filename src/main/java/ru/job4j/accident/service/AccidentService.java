@@ -2,7 +2,8 @@ package ru.job4j.accident.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.repository.AccidentMen;
+import ru.job4j.accident.model.AccidentType;
+import ru.job4j.accident.repository.AccidentMem;
 
 import java.util.List;
 
@@ -11,17 +12,25 @@ import java.util.List;
  */
 @Service
 public class AccidentService {
-    private final AccidentMen accidentMen;
+    private final AccidentMem accidentMem;
 
-    public AccidentService(AccidentMen accidentMen) {
-        this.accidentMen = accidentMen;
+    public AccidentService(AccidentMem accidentMem) {
+        this.accidentMem = accidentMem;
     }
 
     public List<Accident> findAll() {
-        return accidentMen.findAll();
+        return accidentMem.findAll();
     }
 
     public void save(Accident accident) {
-        accidentMen.save(accident);
+        accidentMem.save(accident);
+    }
+
+    public List<AccidentType> findAllAccidentTypes() {
+        return accidentMem.getAllType();
+    }
+
+    public void addAccidentType(AccidentType accidentType) {
+        accidentMem.addType(accidentType);
     }
 }

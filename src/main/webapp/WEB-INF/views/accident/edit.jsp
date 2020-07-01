@@ -13,19 +13,30 @@
 <br>
 <div class="container">
     <form action="<c:url value='./save'/>" method='POST'>
-        <input type="hidden" name="id" value="<%= request.getParameter("id")%>">
+        <input type="hidden" name="id" value='${param["id"]}'>
         <div class="form-group">
             <label class="input-group-addon">ФИО нарушителя</label>
-            <input id="msg" type="text" class="form-control" name="name" value="<%= request.getParameter("name")%>">
+            <input id="msg" type="text" class="form-control" name="name" value='${param["name"]}'>
+        </div>
+        <div class="form-group">
+            <label class="input-group-addon">Тип</label>
+            <select name="accidentType.id" class="form-control">
+                <c:forEach var="accidentType" items='${accidentTypes}'>
+                    <option value="${accidentType.id}"
+                            <c:set var="typeId" value='${param["accidentTypeId"]}'/>
+                            <c:if test='${accidentType.id eq typeId}'> selected="selected" </c:if>
+                    >${accidentType.name}</option>
+                </c:forEach>
+            </select>
         </div>
         <div class="form-group">
             <label class="input-group-addon">Описание события</label>
-            <input id="msg" type="text" class="form-control" name="text" value="<%= request.getParameter("text")%>">
+            <input id="msg" type="text" class="form-control" name="text" value='${param["text"]}'>
         </div>
         <div class="form-group">
             <label class="input-group-addon">Место события</label>
             <input id="msg" type="text" class="form-control" name="address"
-                   value="<%= request.getParameter("address")%>">
+                   value='${param["address"]}'>
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-dark" name="submit" value="Сохранить">

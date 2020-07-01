@@ -18,6 +18,14 @@
             <input id="msg" type="text" class="form-control" name="name" placeholder="Иванов Иван Иванович">
         </div>
         <div class="form-group">
+            <label class="input-group-addon">Тип</label>
+            <select name="accidentType.id" class="form-control">
+                <c:forEach var="accidentType" items="${accidentTypes}">
+                    <option value="${accidentType.id}">${accidentType.name}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="form-group">
             <label class="input-group-addon">Описание события</label>
             <input id="msg" type="text" class="form-control" name="text" placeholder="Что произошло?">
         </div>

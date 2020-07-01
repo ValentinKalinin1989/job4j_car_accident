@@ -1,11 +1,15 @@
 package ru.job4j.accident.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.accident.model.Accident;
+import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.service.AccidentService;
+
+import java.util.List;
 
 @Controller
 public class AccidentControl {
@@ -17,7 +21,9 @@ public class AccidentControl {
     }
 
     @GetMapping("/create")
-    public String create() {
+    public String create(Model model) {
+        List<AccidentType> accidentTypes = accidentService.findAllAccidentTypes();
+        model.addAttribute("accidentTypes", accidentTypes);
         return "accident/create";
     }
 
@@ -28,7 +34,9 @@ public class AccidentControl {
     }
 
     @GetMapping("/edit")
-    public String edit() {
+    public String edit(Model model) {
+        List<AccidentType> accidentTypes = accidentService.findAllAccidentTypes();
+        model.addAttribute("accidentTypes", accidentTypes);
         return "accident/edit";
     }
 
