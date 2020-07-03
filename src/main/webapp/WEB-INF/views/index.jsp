@@ -24,18 +24,29 @@
             <th>Id</th>
             <th>ФИО нарушителя</th>
             <th>Тип события</th>
+            <th>Список нарушенных статей</th>
             <th>Событие</th>
             <th>Место</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${accidents}" var="accident">
+        <c:forEach var="accident" items="${accidents}">
             <tr>
                 <form action="<c:url value='./edit'/>" method="GET">
                     <td><input type="hidden" name="id" value="${accident.id}">${accident.id}</td>
                     <td><input type="hidden" name="name" value="${accident.name}">${accident.name}</td>
-                    <td><input type="hidden" name="accidentTypeId" value="${accident.accidentType.id}">${accident.accidentType.name}</td>
+                    <td><input type="hidden" name="accidentTypeId"
+                               value="${accident.accidentType.id}">${accident.accidentType.name}</td>
+                    <td>
+                        <table class="table-borderless">
+                            <c:forEach var="rule" items="${accident.rules}">
+                                <tr>
+                                    <td><input type="hidden" name="${rule.id}" value="${rule.id}">${rule.name}</td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </td>
                     <td><input type="hidden" name="text" value="${accident.text}">${accident.text}</td>
                     <td><input type="hidden" name="address" value="${accident.address}">${accident.address}</td>
                     <td><input name="submit" type="submit" value="Редактировать" class="btn btn-dark"></td>

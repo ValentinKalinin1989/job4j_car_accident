@@ -26,16 +26,23 @@
             </select>
         </div>
         <div class="form-group">
-            <label class="input-group-addon">Описание события</label>
-            <input id="msg" type="text" class="form-control" name="text" placeholder="Что произошло?">
-        </div>
-        <div class="form-group">
-            <label class="input-group-addon">Место события</label>
-            <input id="msg" type="text" class="form-control" name="address" placeholder="Где произошло">
-        </div>
-        <div class="form-group">
-            <input type="submit" class="btn btn-dark" name="submit" value="Сохранить">
-        </div>
+            <label class="input-group-addon">Список нарушенных статей</label>
+            <select multiple="multiple" name="ruleIds" class="form-control">
+                <c:forEach var="rule" items="${rules}" varStatus="loop">
+                    <option value="${rule.id}">${rule.name}</option>
+                </c:forEach>
+            </select>
+            <div class="form-group">
+                <label class="input-group-addon">Описание события</label>
+                <input id="msg" type="text" class="form-control" name="text" placeholder="Что произошло?">
+            </div>
+            <div class="form-group">
+                <label class="input-group-addon">Место события</label>
+                <input id="msg" type="text" class="form-control" name="address" placeholder="Где произошло">
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-dark" name="submit" value="Сохранить">
+            </div>
     </form>
 </div>
 </body>

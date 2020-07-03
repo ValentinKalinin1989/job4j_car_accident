@@ -30,6 +30,33 @@
             </select>
         </div>
         <div class="form-group">
+            <label class="input-group-addon">Список нарушенных статей</label>
+            <select multiple="multiple" name="ruleIds" class="form-control">
+                <c:forEach var="rule" items="${rules}" varStatus="loop">
+                    <option value="${rule.id}"
+                            <c:set var="ruleId" value='${param["1"]}'/>
+                            <c:if test='${rule.id eq ruleId}'> selected="selected" </c:if>
+                            <c:set var="ruleId" value='${param["2"]}'/>
+                            <c:if test='${rule.id eq ruleId}'> selected="selected" </c:if>
+                            <c:set var="ruleId" value='${param["3"]}'/>
+                            <c:if test='${rule.id eq ruleId}'> selected="selected" </c:if>
+                            <c:set var="ruleId" value='${param["4"]}'/>
+                            <c:if test='${rule.id eq ruleId}'> selected="selected" </c:if>
+                            <c:set var="ruleId" value='${param["5"]}'/>
+                            <c:if test='${rule.id eq ruleId}'> selected="selected" </c:if>
+                            <c:set var="ruleId" value='${param["6"]}'/>
+                            <c:if test='${rule.id eq ruleId}'> selected="selected" </c:if>
+                            <c:set var="ruleId" value='${param["7"]}'/>
+                            <c:if test='${rule.id eq ruleId}'> selected="selected" </c:if>
+                            <c:set var="ruleId" value='${param["8"]}'/>
+                            <c:if test='${rule.id eq ruleId}'> selected="selected" </c:if>
+                            <c:set var="ruleId" value='${param["9"]}'/>
+                            <c:if test='${rule.id eq ruleId}'> selected="selected" </c:if>
+                    >${rule.name}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="form-group">
             <label class="input-group-addon">Описание события</label>
             <input id="msg" type="text" class="form-control" name="text" value='${param["text"]}'>
         </div>
