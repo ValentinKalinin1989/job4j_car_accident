@@ -79,7 +79,7 @@ public class AccidentMem {
      *
      * @param accident - object to save or update in repository
      */
-    public void save(Accident accident) {
+    public Accident save(Accident accident) {
         Long accidentId = accident.getId();
         if (accidents == null) {
             accidents = new HashMap<>();
@@ -95,6 +95,7 @@ public class AccidentMem {
             accident.setAccidentType(accidentTypes.get(currentType.getId()));
         }
         accidents.put(accidentId, accident);
+        return accident;
     }
 
     /**

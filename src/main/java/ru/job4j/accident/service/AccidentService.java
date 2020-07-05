@@ -1,45 +1,21 @@
 package ru.job4j.accident.service;
 
-import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentMem;
 
 import java.util.List;
 
-/**
- * get and set data from AccidentMen repository
- */
-@Service
-public class AccidentService {
-    private final AccidentMem accidentMem;
+public interface AccidentService {
+    List<Accident> findAll();
 
-    public AccidentService(AccidentMem accidentMem) {
-        this.accidentMem = accidentMem;
-    }
+    Accident save(Accident accident);
 
-    public List<Accident> findAll() {
-        return accidentMem.findAll();
-    }
+    List<AccidentType> findAllAccidentTypes();
 
-    public void save(Accident accident) {
-        accidentMem.save(accident);
-    }
+    void addAccidentType(AccidentType accidentType);
 
-    public List<AccidentType> findAllAccidentTypes() {
-        return accidentMem.getAllType();
-    }
+    List<Rule> getAllRule();
 
-    public void addAccidentType(AccidentType accidentType) {
-        accidentMem.addType(accidentType);
-    }
-
-    public List<Rule> getAllRule() {
-        return accidentMem.getAllRules();
-    }
-
-    public void addRulesToAccident(Accident accident, Integer[] ruleIds) {
-        accidentMem.addRulesToAccident(accident, ruleIds);
-    }
+    void addRulesToAccident(Accident accident, Integer[] ruleIds);
 }

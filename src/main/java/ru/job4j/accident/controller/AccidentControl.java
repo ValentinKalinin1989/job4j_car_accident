@@ -24,16 +24,21 @@ public class AccidentControl {
 
     @GetMapping("/create")
     public String create(Model model) {
+
         List<AccidentType> accidentTypes = accidentService.findAllAccidentTypes();
         List<Rule> rules = accidentService.getAllRule();
         model.addAttribute("accidentTypes", accidentTypes);
         model.addAttribute("rules", rules);
+
         return "accident/create";
+
     }
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, HttpServletRequest request) {
-        accidentService.save(accident);
+
+        Accident savedAccident = accidentService.save(accident);
+
         String[] idsString = request.getParameterValues("ruleIds");
         if (idsString != null) {
             Integer[] ids = new Integer[idsString.length];
@@ -42,6 +47,7 @@ public class AccidentControl {
             }
             accidentService.addRulesToAccident(accident, ids);
         }
+
         return "redirect:/";
     }
 
