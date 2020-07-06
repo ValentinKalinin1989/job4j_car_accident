@@ -19,7 +19,7 @@ create table if not exists rule
     name varchar(200)
 );
 
-create table if not exists accident_rule
+create table if not exists accident_to_rule
 (
     accident_rule_id int references accident (id),
     rule_accident_id int references rule (id)

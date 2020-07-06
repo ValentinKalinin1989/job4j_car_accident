@@ -51,10 +51,10 @@ public class AccidentJdbcTemplate {
      */
     public void addRulesToAccident(Accident accident, Integer[] ruleIds) {
         Long accidentId = accident.getId();
-        jdbcTemplate.update("delete from accident_rule where accident_rule_id = ?",
+        jdbcTemplate.update("delete from accident_to_rule where accident_rule_id = ?",
                 accidentId);
         for (Integer ruleId : ruleIds) {
-            jdbcTemplate.update("insert into accident_rule(accident_rule_id, rule_accident_id) values ( ?, ?)",
+            jdbcTemplate.update("insert into accident_to_rule(accident_rule_id, rule_accident_id) values ( ?, ?)",
                     accidentId, ruleId);
         }
     }
@@ -82,7 +82,7 @@ public class AccidentJdbcTemplate {
 
         for (Accident accident : accidentList) {
             Long accidentId = accident.getId();
-            String query = "select rule.id, rule.name from accident_rule left join rule on accident_rule.rule_accident_id = rule.id where accident_rule_id = "
+            String query = "select rule.id, rule.name from accident_to_rule left join rule on accident_to_rule.rule_accident_id = rule.id where accident_rule_id = "
                     + accidentId.toString();
             List<Rule> ruleList = jdbcTemplate.query(
                     query,
