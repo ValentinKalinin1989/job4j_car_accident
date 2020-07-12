@@ -1,10 +1,22 @@
 package ru.job4j.accident.model;
 
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "rule")
 public class Rule {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "name", length = 200)
     private String name;
+    @ManyToMany(cascade = {
+            CascadeType.ALL
+    },
+            mappedBy = "rules")
+    private List<Accident> accidents;
 
     public static Rule of(Long id, String name) {
         Rule rule = new Rule();
@@ -27,6 +39,14 @@ public class Rule {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Accident> getAccidents() {
+        return accidents;
+    }
+
+    public void setAccidents(List<Accident> accidents) {
+        this.accidents = accidents;
     }
 
     @Override

@@ -2,17 +2,17 @@ package ru.job4j.accident.repository;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Repository;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-@Repository
+//@Repository
+
 public class AccidentJdbcTemplate {
     private final JdbcTemplate jdbcTemplate;
 
@@ -26,6 +26,7 @@ public class AccidentJdbcTemplate {
      * @param accident - the Accident for save
      * @return - the Accident that was saved(with id, if it was null)
      */
+
     public Accident save(Accident accident) {
         Long accidentId = accident.getId();
         if (accidentId == null) {
@@ -49,12 +50,13 @@ public class AccidentJdbcTemplate {
      * @param accident - the Accident for which want to create links
      * @param ruleIds - array of Rule id's
      */
+
     public void addRulesToAccident(Accident accident, Integer[] ruleIds) {
         Long accidentId = accident.getId();
-        jdbcTemplate.update("delete from accident_to_rule where accident_rule_id = ?",
+        jdbcTemplate.update("delete from accident_rule where accident_id = ?",
                 accidentId);
         for (Integer ruleId : ruleIds) {
-            jdbcTemplate.update("insert into accident_to_rule(accident_rule_id, rule_accident_id) values ( ?, ?)",
+            jdbcTemplate.update("insert into accident_rule(accident_id, rule_id) values ( ?, ?)",
                     accidentId, ruleId);
         }
     }
@@ -63,10 +65,11 @@ public class AccidentJdbcTemplate {
      * find all Accidents from DB
      * @return list of Accidents
      */
+
     public List<Accident> findAll() {
 
         List<Accident> accidentList = jdbcTemplate.query(
-                "select accident.id, accident.name, accident.text, accident.address, accident.accident_type_id, accident_type.name from accident left join accident_type ON accident.accident_type_id = accident_type.id",
+                "select accident.id, accident.name, accident.text, accident.address, accident.accident_type_id, accidenttype.name from accident left join accident_type ON accident.accidenttype_id = accidenttype.id",
                 (resultSet, row) -> {
                     Accident accident = new Accident();
                     accident.setId(resultSet.getLong(1));
@@ -82,7 +85,7 @@ public class AccidentJdbcTemplate {
 
         for (Accident accident : accidentList) {
             Long accidentId = accident.getId();
-            String query = "select rule.id, rule.name from accident_to_rule left join rule on accident_to_rule.rule_accident_id = rule.id where accident_rule_id = "
+            String query = "select rule.id, rule.name from accident_rule left join rule on accident_rule.rule_id = rule.id where accident_id = "
                     + accidentId.toString();
             List<Rule> ruleList = jdbcTemplate.query(
                     query,
@@ -93,7 +96,7 @@ public class AccidentJdbcTemplate {
                         return rule;
                     }
             );
-            accident.setRules(new HashSet<>(ruleList));
+            //accident.setRules(new HashSet<>(ruleList));
         }
 
         return accidentList;
@@ -110,7 +113,6 @@ public class AccidentJdbcTemplate {
             rule.setName(resultSet.getString("name"));
             return rule;
         });
-
     }
 
     /**
@@ -118,7 +120,7 @@ public class AccidentJdbcTemplate {
      * @return list of AccidentTypes
      */
     public List<AccidentType> findAllAccidentTypes() {
-        return jdbcTemplate.query("select id, name from accident_type",
+        return jdbcTemplate.query("select id, name from accidenttype",
                 (resultSet, row) -> {
                     AccidentType accidentType = new AccidentType();
                     accidentType.setId(resultSet.getLong("id"));
@@ -127,3 +129,4 @@ public class AccidentJdbcTemplate {
                 });
     }
 }
+

@@ -1,4 +1,4 @@
-create table if not exists accident_type
+create table if not exists accidenttype
 (
     id   serial primary key,
     name varchar(50)
@@ -10,7 +10,7 @@ create table if not exists accident
     name             varchar(50),
     text             varchar(1000),
     address          varchar(100),
-    accident_type_id int references accident_type (id)
+    accidenttype_id int references accidenttype (id)
 );
 
 create table if not exists rule
@@ -19,8 +19,8 @@ create table if not exists rule
     name varchar(200)
 );
 
-create table if not exists accident_to_rule
+create table if not exists accident_rule
 (
-    accident_rule_id int references accident (id),
-    rule_accident_id int references rule (id)
+    accident_id int references accident (id),
+    rule_id int references rule (id)
 );

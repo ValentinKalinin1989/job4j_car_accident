@@ -1,35 +1,35 @@
 package ru.job4j.accident.service;
 
+import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentJdbcTemplate;
+import ru.job4j.accident.repository.AccidentHibernate;
 
 import java.util.List;
 
-//@Service
-public class AccidentServiceJdbcTemplate implements AccidentService {
+@Service
+public class AccidentServiceHibernate implements AccidentService {
 
-    private final AccidentJdbcTemplate accidentJdbcTemplate;
+    private final AccidentHibernate accidentHibernate;
 
-    public AccidentServiceJdbcTemplate(AccidentJdbcTemplate accidentJdbcTemplate) {
-        this.accidentJdbcTemplate = accidentJdbcTemplate;
+    public AccidentServiceHibernate(AccidentHibernate accidentHibernate) {
+        this.accidentHibernate = accidentHibernate;
     }
 
     @Override
     public List<Accident> findAll() {
-        return accidentJdbcTemplate.findAll();
+        return accidentHibernate.findAll();
     }
 
     @Override
     public Accident save(Accident accident) {
-        return accidentJdbcTemplate.save(accident);
+        return accidentHibernate.save(accident);
     }
 
     @Override
     public List<AccidentType> findAllAccidentTypes() {
-
-        return accidentJdbcTemplate.findAllAccidentTypes();
+        return accidentHibernate.findAllAccidentTypes();
     }
 
     @Override
@@ -39,14 +39,11 @@ public class AccidentServiceJdbcTemplate implements AccidentService {
 
     @Override
     public List<Rule> getAllRule() {
-
-        return accidentJdbcTemplate.getAllRule();
+        return accidentHibernate.getAllRule();
     }
 
     @Override
     public void addRulesToAccident(Accident accident, Integer[] ruleIds) {
-        accidentJdbcTemplate.addRulesToAccident(accident, ruleIds);
+        accidentHibernate.addRulesToAccident(accident, ruleIds);
     }
 }
-
-

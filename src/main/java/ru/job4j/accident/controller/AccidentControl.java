@@ -29,15 +29,12 @@ public class AccidentControl {
         List<Rule> rules = accidentService.getAllRule();
         model.addAttribute("accidentTypes", accidentTypes);
         model.addAttribute("rules", rules);
-
         return "accident/create";
 
     }
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, HttpServletRequest request) {
-
-        Accident savedAccident = accidentService.save(accident);
 
         String[] idsString = request.getParameterValues("ruleIds");
         if (idsString != null) {
@@ -47,7 +44,6 @@ public class AccidentControl {
             }
             accidentService.addRulesToAccident(accident, ids);
         }
-
         return "redirect:/";
     }
 

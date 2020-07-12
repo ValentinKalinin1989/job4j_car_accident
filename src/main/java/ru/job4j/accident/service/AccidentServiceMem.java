@@ -10,6 +10,8 @@ import java.util.List;
 /**
  * get and set data from AccidentMen repository
  */
+
+//@Service
 public class AccidentServiceMem implements AccidentService {
     private final AccidentMem accidentMem;
 
@@ -41,3 +43,5 @@ public class AccidentServiceMem implements AccidentService {
         accidentMem.addRulesToAccident(accident, ruleIds);
     }
 }
+
+

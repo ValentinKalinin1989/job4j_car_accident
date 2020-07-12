@@ -51,6 +51,7 @@ public class AccidentMem {
         accidentTypes.put(8L, AccidentType.of(8L, "Сбит человек вне дороги"));
         accidentTypes.put(9L, AccidentType.of(9L, "Превышение скорости"));
         this.accidents = new HashMap<>();
+
         accidents.put(1L, new Accident(1L, "Иван Иванович Иванов", "Превышение скорости на 30 км/час", "Москва, проспект Ленина", accidentTypes.get(9L), rules1));
         accidents.put(2L, new Accident(2L, "Валентин Валентинович Валентинов", "Превышение скорости на 56 км/час", "Санкт-Петербург, проспект Ленина", accidentTypes.get(9L), rules1));
         accidents.put(3L, new Accident(3L, "Валелерий Валерьевич Валериевов", "Превышение скорости на 60 км/час", "Екатеринбург, проспект Ленина", accidentTypes.get(9L), rules1));
@@ -63,6 +64,8 @@ public class AccidentMem {
         accidents.put(10L, new Accident(10L, "Билли Бутчер", "Сбил человека-невидимку", "Нью-Йорк, магазин видео-аудио техники, проспект Ленина", accidentTypes.get(8L), rules3));
         accidents.put(11L, new Accident(11L, "Иван Иванович Иванов", "Превышение скорости на 20 км/час", "Москва, проспект Ленина", accidentTypes.get(9L), rules3));
         id = (long) accidents.size();
+
+
     }
 
     /**
@@ -76,9 +79,10 @@ public class AccidentMem {
 
     /**
      * save accident if it is new, or update accident if same id present in repository
-     *
-     * @param accident - object to save or update in repository
+     * <p>
+     * // * @param accident - object to save or update in repository
      */
+
     public Accident save(Accident accident) {
         Long accidentId = accident.getId();
         if (accidents == null) {
@@ -130,13 +134,16 @@ public class AccidentMem {
         return new ArrayList<>(rules.values());
     }
 
+
     public void addRulesToAccident(Accident accident, Integer[] ruleIds) {
         if (accident.getId() == null) {
             save(accident);
         }
+
         Accident currentAccident = accidents.get(accident.getId());
         for (int index : ruleIds) {
             currentAccident.addRule(rules.get((long) index));
         }
     }
 }
+

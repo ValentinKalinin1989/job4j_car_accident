@@ -1,10 +1,25 @@
 package ru.job4j.accident.model;
 
+
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "accidenttype")
 public class AccidentType {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "name", length = 50)
     private String name;
+
+    @OneToMany(cascade = {
+            CascadeType.ALL
+    },
+            mappedBy = "accidentType")
+    private List<Accident> accidents;
 
     public static AccidentType of(Long id, String name) {
         AccidentType type = new AccidentType();
@@ -29,12 +44,20 @@ public class AccidentType {
         this.name = name;
     }
 
+    public List<Accident> getAccidents() {
+        return accidents;
+    }
+
+    public void setAccidents(List<Accident> accidents) {
+        this.accidents = accidents;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AccidentType type = (AccidentType) o;
-        return id.equals(type.id);
+        AccidentType that = (AccidentType) o;
+        return id.equals(that.id);
     }
 
     @Override
