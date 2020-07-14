@@ -23,17 +23,11 @@ public class Accident {
     @Column(name = "address", length = 100)
     private String address;
 
-    @ManyToOne(cascade = {
-            CascadeType.ALL
-    },
-            fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "accidenttype_id")
     private AccidentType accidentType;
 
-    @ManyToMany(cascade = {
-            CascadeType.ALL
-    },
-            fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "accident_rule",
             joinColumns = @JoinColumn(name = "accident_id"),
             inverseJoinColumns = @JoinColumn(name = "rule_id"))

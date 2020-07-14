@@ -13,8 +13,6 @@ public interface AccidentService {
 
     List<AccidentType> findAllAccidentTypes();
 
-    void addAccidentType(AccidentType accidentType);
-
     List<Rule> getAllRule();
 
     void addRulesToAccident(Accident accident, Integer[] ruleIds);

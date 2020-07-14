@@ -33,11 +33,6 @@ public class AccidentServiceJdbcTemplate implements AccidentService {
     }
 
     @Override
-    public void addAccidentType(AccidentType accidentType) {
-
-    }
-
-    @Override
     public List<Rule> getAllRule() {
 
         return accidentJdbcTemplate.getAllRule();

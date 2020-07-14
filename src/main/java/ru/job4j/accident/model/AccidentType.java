@@ -15,10 +15,7 @@ public class AccidentType {
     @Column(name = "name", length = 50)
     private String name;
 
-    @OneToMany(cascade = {
-            CascadeType.ALL
-    },
-            mappedBy = "accidentType")
+    @OneToMany(mappedBy = "accidentType")
     private List<Accident> accidents;
 
     public static AccidentType of(Long id, String name) {

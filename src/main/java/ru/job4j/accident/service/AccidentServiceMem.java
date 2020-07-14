@@ -31,10 +31,6 @@ public class AccidentServiceMem implements AccidentService {
         return accidentMem.getAllType();
     }
 
-    public void addAccidentType(AccidentType accidentType) {
-        accidentMem.addType(accidentType);
-    }
-
     public List<Rule> getAllRule() {
         return accidentMem.getAllRules();
     }

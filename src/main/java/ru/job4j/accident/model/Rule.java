@@ -6,16 +6,16 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "rule")
-public class Rule {
+public class Rule{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name", length = 200)
     private String name;
-    @ManyToMany(cascade = {
-            CascadeType.ALL
-    },
-            mappedBy = "rules")
+    @ManyToMany
+    @JoinTable(name = "accident_rule",
+            joinColumns = @JoinColumn(name = "rule_id"),
+            inverseJoinColumns = @JoinColumn(name = "accident_id"))
     private List<Accident> accidents;
 
     public static Rule of(Long id, String name) {

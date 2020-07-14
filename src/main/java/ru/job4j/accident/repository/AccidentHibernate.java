@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Repository
+//@Repository
 public class AccidentHibernate {
     private final SessionFactory sessionFactory;
 
@@ -22,25 +22,20 @@ public class AccidentHibernate {
     public Accident save(Accident accident) {
         try (Session session = sessionFactory.openSession()) {
             session.saveOrUpdate(accident);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return accident;
     }
 
     public void addRulesToAccident(Accident accident, Integer[] ruleIds) {
         try (Session session = sessionFactory.openSession()) {
-            Set<Rule> rules = new HashSet<>(ruleIds.length);
+            Set<Rule> rules = new HashSet<>();
             for(Integer id: ruleIds) {
-                rules.add(session.byId(Rule.class).getReference(id.longValue()));
+                Rule rule = session.byId(Rule.class).getReference(id.longValue());
+                rules.add(rule);
             }
-            System.out.println(ruleIds.toString());
             accident.setRules(rules);
             session.saveOrUpdate(accident);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
     }
 
     public List<Accident> findAll() {

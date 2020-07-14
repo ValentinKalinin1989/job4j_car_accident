@@ -13,6 +13,7 @@ import ru.job4j.accident.service.AccidentService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+
 @Controller
 public class AccidentControl {
 
@@ -24,13 +25,11 @@ public class AccidentControl {
 
     @GetMapping("/create")
     public String create(Model model) {
-
         List<AccidentType> accidentTypes = accidentService.findAllAccidentTypes();
         List<Rule> rules = accidentService.getAllRule();
         model.addAttribute("accidentTypes", accidentTypes);
         model.addAttribute("rules", rules);
         return "accident/create";
-
     }
 
     @PostMapping("/save")
@@ -43,7 +42,10 @@ public class AccidentControl {
                 ids[i] = Integer.valueOf(idsString[i]);
             }
             accidentService.addRulesToAccident(accident, ids);
+        } else {
+            accidentService.save(accident);
         }
+
         return "redirect:/";
     }
 
@@ -57,3 +59,4 @@ public class AccidentControl {
     }
 
 }
+

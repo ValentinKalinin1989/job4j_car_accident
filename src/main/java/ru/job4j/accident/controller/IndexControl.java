@@ -10,16 +10,21 @@ import java.util.List;
 
 @Controller
 public class IndexControl {
+
+
     private final AccidentService accidentService;
 
     public IndexControl(AccidentService accidentService) {
         this.accidentService = accidentService;
     }
 
+
     @GetMapping("/")
     public String index(Model model) {
+
         List<Accident> accidents = accidentService.findAll();
         model.addAttribute("accidents", accidents);
         return "index";
+
     }
 }

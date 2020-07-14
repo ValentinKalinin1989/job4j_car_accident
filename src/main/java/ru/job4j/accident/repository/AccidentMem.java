@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * repository for accidents
  */
-@Repository
+//@Repository
 public class AccidentMem {
     private HashMap<Long, Accident> accidents;
     private HashMap<Long, AccidentType> accidentTypes;
