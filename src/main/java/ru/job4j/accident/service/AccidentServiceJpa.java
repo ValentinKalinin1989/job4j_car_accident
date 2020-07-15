@@ -11,7 +11,7 @@ import ru.job4j.accident.repository.jparepository.RuleRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+//@Service
 public class AccidentServiceJpa implements AccidentService {
     private final AccidentRepository accidentRepository;
     private final AccidentTypeRepository accidentTypeRepository;

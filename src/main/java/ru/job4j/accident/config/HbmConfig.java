@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-//@Configuration
-//@PropertySource("classpath:app.properties")
-//@EnableTransactionManagement
+@Configuration
+@PropertySource("classpath:app.properties")
+@EnableTransactionManagement
 public class HbmConfig {
 
     @Bean
@@ -39,7 +39,6 @@ public class HbmConfig {
         sessionFactoryBean.setPackagesToScan("ru.job4j.accident.model");
         Properties config = new Properties();
         config.setProperty("hibernate.dialect", dialect);
-        config.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 
         sessionFactoryBean.setHibernateProperties(config);
         return sessionFactoryBean;

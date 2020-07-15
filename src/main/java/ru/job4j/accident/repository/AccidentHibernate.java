@@ -2,16 +2,15 @@ package ru.job4j.accident.repository;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-//@Repository
+@Repository
 public class AccidentHibernate {
     private final SessionFactory sessionFactory;
 
@@ -21,20 +20,22 @@ public class AccidentHibernate {
 
     public Accident save(Accident accident) {
         try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
             session.saveOrUpdate(accident);
+            transaction.commit();
         }
         return accident;
     }
 
     public void addRulesToAccident(Accident accident, Integer[] ruleIds) {
         try (Session session = sessionFactory.openSession()) {
-            Set<Rule> rules = new HashSet<>();
+            Transaction transaction = session.beginTransaction();
+            List<Rule> rules = getAllRule();
             for(Integer id: ruleIds) {
-                Rule rule = session.byId(Rule.class).getReference(id.longValue());
-                rules.add(rule);
+                accident.addRule(rules.get(id -1));
             }
-            accident.setRules(rules);
             session.saveOrUpdate(accident);
+            transaction.commit();
         }
     }
 
@@ -61,15 +62,4 @@ public class AccidentHibernate {
                     .list();
         }
     }
-
-
-    public void addAccidentType(AccidentType accidentType) {
-
-    }
-
-    public void addRulesToAccident() {
-
-    }
-
-
 }

@@ -45,7 +45,6 @@ public class AccidentControl {
         } else {
             accidentService.save(accident);
         }
-
         return "redirect:/";
     }
 
@@ -57,6 +56,5 @@ public class AccidentControl {
         model.addAttribute("rules", rules);
         return "accident/edit";
     }
-
 }
 
