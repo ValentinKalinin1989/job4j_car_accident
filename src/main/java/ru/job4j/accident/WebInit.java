@@ -17,7 +17,7 @@ import javax.servlet.ServletRegistration;
 public class WebInit implements WebApplicationInitializer {
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
-        webApplicationContext.register(WebConfig.class, HbmConfig.class, SecurityConfig.class);
+        webApplicationContext.register(WebConfig.class, DataConfig.class, SecurityConfig.class);
         webApplicationContext.refresh();
         CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
         encodingFilter.setEncoding("UTF-8");

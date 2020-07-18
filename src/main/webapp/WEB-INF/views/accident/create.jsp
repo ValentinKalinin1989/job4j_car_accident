@@ -10,6 +10,9 @@
     <a class="navbar-brand">Ввод информации об автонарушителе</a>
     <a class="text-white" href="<c:url value='./'/>">На главную страницу</a>
 </nav>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand font-italic text-primary">Вход под именем: ${user.username}</a>
+</nav>
 <br>
 <div class="container">
     <form action="<c:url value='./save'/>" method='POST'>

@@ -15,6 +15,10 @@
     <a class="text-white" href="<c:url value='./create'/>">Добавить инцидент</a>
 </nav>
 
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand font-italic text-primary">Вход под именем: ${user.username}</a>
+</nav>
+
 <br>
 
 <div class="container">
