@@ -1,8 +1,6 @@
 package ru.job4j.accident.service;
 
-import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.model.AccidentType;
-import ru.job4j.accident.model.Rule;
+import ru.job4j.accident.model.*;
 import ru.job4j.accident.repository.AccidentJdbcTemplate;
 
 import java.util.List;
@@ -41,6 +39,16 @@ public class AccidentServiceJdbcTemplate implements AccidentService {
     @Override
     public void addRulesToAccident(Accident accident, Integer[] ruleIds) {
         accidentJdbcTemplate.addRulesToAccident(accident, ruleIds);
+    }
+
+    @Override
+    public Authority findByAuthority(String authority) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void save(User user) {
+        throw new UnsupportedOperationException();
     }
 }
 

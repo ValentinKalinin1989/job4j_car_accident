@@ -1,8 +1,6 @@
 package ru.job4j.accident.service;
 
-import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.model.AccidentType;
-import ru.job4j.accident.model.Rule;
+import ru.job4j.accident.model.*;
 
 import java.util.List;
 
@@ -16,4 +14,8 @@ public interface AccidentService {
     List<Rule> getAllRule();
 
     void addRulesToAccident(Accident accident, Integer[] ruleIds);
+
+    Authority findByAuthority(String authority);
+
+    void save(User user);
 }

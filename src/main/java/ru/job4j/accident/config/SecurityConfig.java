@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -18,6 +17,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -44,44 +44,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder managerBuilder) throws Exception {
-        //in memory
-        /*
-        managerBuilder.inMemoryAuthentication()
-                .passwordEncoder(passwordEncoder)
-                .withUser("user").password(passwordEncoder.encode("123456")).roles("USER")
-                .and()
-                .withUser("admin").password(passwordEncoder.encode("123456")).roles("USER", "ADMIN");
 
-         */
+        final PasswordEncoder passwordEncoder = this.passwordEncoder;
+        final String users = "select username, password, enabled from users where username = ?";
+        final String authority = "select u.username, a.authority from authorities a, users u where u.username = ? and u.authority_id = a.id";
         managerBuilder.jdbcAuthentication()
-                .dataSource(dataSource)
-                .withUser(User.withUsername("user")
-                .password(passwordEncoder().encode("123456"))
-                .roles("USER"));
+                .dataSource(this.dataSource)
+                .passwordEncoder(passwordEncoder)
+                .usersByUsernameQuery(users)
+                .authoritiesByUsernameQuery(authority);
     }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-        .antMatchers("login")
-        .permitAll()
-        .antMatchers("/**")
-        .hasAnyRole("ADMIN", "USER")
-        .and()
-        .formLogin()
-        .loginPage("/login")
-        .defaultSuccessUrl("/")
-        .failureUrl("/login?error=true")
-        .permitAll()
-        .and()
-        .logout()
-        .logoutSuccessUrl("/login?logout=true")
-        .invalidateHttpSession(true)
-        .permitAll()
-        .and()
-        .csrf()
-        .disable();
+                .antMatchers("/login", "/reg")
+                .permitAll()
+                .antMatchers("/**")
+                .hasAnyRole("USER", "ADMIN")
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/**")
+                .failureUrl("/login?error=true")
+                .permitAll()
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login?logout=true")
+                .invalidateHttpSession(true)
+                .permitAll()
+                .and()
+                .csrf()
+                .disable();
     }
-
 
 }

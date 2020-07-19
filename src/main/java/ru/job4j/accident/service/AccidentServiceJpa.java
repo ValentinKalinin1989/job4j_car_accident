@@ -1,12 +1,8 @@
 package ru.job4j.accident.service;
 
 import org.springframework.stereotype.Service;
-import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.model.AccidentType;
-import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.jparepository.AccidentRepository;
-import ru.job4j.accident.repository.jparepository.AccidentTypeRepository;
-import ru.job4j.accident.repository.jparepository.RuleRepository;
+import ru.job4j.accident.model.*;
+import ru.job4j.accident.repository.jparepository.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +12,19 @@ public class AccidentServiceJpa implements AccidentService {
     private final AccidentRepository accidentRepository;
     private final AccidentTypeRepository accidentTypeRepository;
     private final RuleRepository ruleRepository;
+    private final AuthorityRepository authorityRepository;
+    private final UserRepository userRepository;
 
     public AccidentServiceJpa(AccidentRepository accidentRepository,
                               AccidentTypeRepository accidentTypeRepository,
-                              RuleRepository ruleRepository) {
+                              RuleRepository ruleRepository,
+                              AuthorityRepository authorityRepository,
+                              UserRepository userRepository) {
         this.accidentRepository = accidentRepository;
         this.accidentTypeRepository = accidentTypeRepository;
         this.ruleRepository = ruleRepository;
+        this.authorityRepository = authorityRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -58,5 +60,14 @@ public class AccidentServiceJpa implements AccidentService {
             accident.addRule(rules.get(index - 1));
         }
         accidentRepository.save(accident);
+    }
+
+    public Authority findByAuthority(String authority) {
+        return authorityRepository.findByAuthority(authority);
+    }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
     }
 }
